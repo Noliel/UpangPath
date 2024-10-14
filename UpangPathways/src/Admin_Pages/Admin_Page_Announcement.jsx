@@ -11,6 +11,14 @@ const Admin_Page_Announcement = () => {
         .then(res => setData(res.data))
         .catch(err => console.log(err))
     }, [])
+
+    const handleDelete = (id) => {
+      axios.delete('http://localhost:8000/delete/announcement/'+ id)
+      .then(res => {
+        location.reload();
+      })
+      .catch(err => console.log(err))
+    }
   return (
     <div className='md:w-full'>
       <div className='flex justify-between p-5 shadow-xl center place-items-center'>
@@ -37,7 +45,7 @@ const Admin_Page_Announcement = () => {
             </div>
             <div className='font-medium flex flex-row-reverse ltr mt-2'>
               <Link to={`/admin/edit/announcement/${announcement_data.ID}`}><RiEdit2Line className='ms-2 text-lg cursor-pointer'/></Link>
-              <FaTrashAlt className='text-red-500 text-lg cursor-pointer'/>
+              <button onClick={() => handleDelete(announcement_data.ID)}><FaTrashAlt className='text-red-500 text-lg cursor-pointer'/></button>
             </div>
           </div>
         </div>
