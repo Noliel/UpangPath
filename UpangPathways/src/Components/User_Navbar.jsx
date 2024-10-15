@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import logo from '../Container/Logo.png'
+import './UseR_Navbar.css'
 
 const User_Navbar = () => {
   return (
-    <div className='flex justify-around bg-lime-900 py-3'>
+    <div className='flex justify-around bg-lime-900 py-3 place-items-center'>
         <div>
-            <Link to="/home">
-            <h1 className='text-2xl text-teal-300'>UPANG PATHWAYS</h1>
+            <Link to="/">
+            <img  class="loo" src={logo} />
             </Link>
         </div>
         <div className='text-white'>
