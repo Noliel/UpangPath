@@ -15,12 +15,8 @@ const User_Page_SchoolMap = () => {
   return (
     <div>
       <div class="title">
-        <h1>School Map</h1>
-          <p> Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Laudantium ex aliquid ipsam fugiat ad error quos,
-              omnis ab modi porro doloribus, consequatur sint? Quas,
-              laudantium at. Harum earum recusandae reprehenderit.
-          </p>
+      <p class="font-mono ...">School Map</p>
+        <p class="text-emerald-900">#KasamaMoAngPhinmaed #MakingLivesofOthersBetter #MakingLiveBetterThroughEducstion</p>
       </div>
       <div class='world-map'>
         <img src={schoolmap}/>
@@ -58,14 +54,23 @@ const User_Page_SchoolMap = () => {
       <div class="pin mba">
         <span>MBA</span>
       </div>
+      <div class="pin mbah">
+        <span>MBA - HALL</span>
+      </div>
       <div class="pin riverside">
         <span>RIVERSIDE BUILDING</span>
       </div>
       <div class="pin gym">
         <span>GYM</span>
       </div>
-      <div class="pin chs">
-        <span>CHS</span>
+      <div class="pin do">
+        <span>Dug-Out</span>
+      </div>
+      <div class="pin gsd">
+        <span>GSD</span>
+      </div>
+      <div class="pin ccje">
+        <span>CCJE</span>
       </div>
       <div class="pin basiced">
         <span>BASIC ED</span>
