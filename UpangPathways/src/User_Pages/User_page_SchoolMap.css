@@ -64,24 +64,95 @@
 }
 
 .ptc {
-    top: 63%;
-    left: 25%;
+    top: 77%;
+    left: 17%;
 }
 
 .csdl-its {
-    top: 65%;
-    left: 30%;
+    top: 75%;
+    left: 24%;
 }
 
 .fvr {
-    top: 67%;
-    left: 37%;
+    top: 80%;
+    left: 29%;
 }
 
 .op {
-    top: 72%;
-    left: 33%;
+    top: 86%;
+    left: 28%;
 }
+
+.atrium {
+  top: 93%;
+  left: 27%;
+}
+
+.cma {
+  top: 97%;
+  left: 33%;
+}
+
+.sp {
+  top: 83%;
+  left: 44%;
+}
+
+.nh {
+  top: 120%;
+  left: 45%;
+}
+
+.forest {
+  top: 96%;
+  left: 49%;
+}
+
+.os {
+  top: 112%;
+  left: 58%;
+}
+
+.mba {
+  top: 45%;
+  left: 60%;
+}
+
+.mbah {
+  top: 68%;
+  left: 60%;
+}
+
+.riverside {
+  top: 44%;
+  left: 68%;
+}
+
+.gym {
+  top: 53%;
+  left: 49%;
+}
+
+.do {
+  top: 46%;
+  left: 45%;
+}
+
+.gsd {
+  top: 62%;
+  left: 50%;
+}
+
+.ccje {
+  top: 60%;
+  left: 40%;
+}
+
+.basiced {
+  top: 59%;
+  left: 32%;
+}
+
 
 body {
     font-family: Arial, sans-serif;
