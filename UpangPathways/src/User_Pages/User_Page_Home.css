@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+}
+
+.full-screen-image {
+    background-image: url('../Container/home/img1.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    height: 100vh; /* Full viewport height */
+    position: relative; /* For absolute positioning of text */
+}
+
+.full-screen-image2 {
+    background-image: url('../Container/home/img2.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    height: 100vh; /* Full viewport height */
+    position: relative; /* For absolute positioning of text */
+}
+
+.full-screen-image3 {
+    background-image: url('../Container/home/up.png'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    height: 100vh; /* Full viewport height */
+    position: relative; /* For absolute positioning of text */
+}
+
+.full-screen-image4 {
+    background-image: url('../Container/home/upang.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    height: 100vh; /* Full viewport height */
+    position: relative; /* For absolute positioning of text */
+}
+
+.overlay-text {
+    position: absolute;
+    top: 35%; /* Center vertically */
+    left: 20%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+    color: white; /* Text color */
+    font-size: 80px; /* Font size */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: shadow for better readability */
+    text-align: center; /* Center text */
+}
+
+.p-text {
+    position: absolute;
+    top: 45%; /* Center vertically */
+    left: 17%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+    color: white; /* Text color */
+    font-size: 65px; /* Font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: shadow for better readability */
+    text-align: center; /* Center text */
+}
+
+.o-text {
+    position: absolute;
+    top: 52%; /* Center vertically */
+    left: 14.5%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+    color: white; /* Text color */
+    font-size: 30px; /* Font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: shadow for better readability */
+    text-align: center; /* Center text */
+}

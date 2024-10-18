@@ -11,22 +11,23 @@ const User_Page_Announcement = () => {
     }, [])
   return (
     <div className='md:w-full'>
-      <div>
-        <h1>HELOO</h1>
-      </div>
-      <div className='flex'>
+      
+      <div className='grid grid-cols-4 gap-4  '>
       {data.map((announcement_data, index) => {
-        return <div key={index} className='flex flex-row'>
-          <div className='py-5 px-5 border-2 w-1/2 md:w-full h-32 m-8 rounded-lg shadow-lg border-green-900'>
+        return <div key={index} className='flex flex-row '>
+          <div className='py-5 px-5 border-2 w-1/2 md:w-full h-30 m-8 rounded-lg shadow-lg border-green-900'>
             <div className='font-medium flex flex-row ltr'>
-                <h1>TITLE</h1>
-                <h1 className='ms-8'>{announcement_data.title}</h1>
+                <h1 className='font-bold'>{announcement_data.title}</h1>
             </div>
-            <div className='font-medium flex flex-row ltr'>
-                <h1>ANNOUNCEMENT</h1>
-                <h1 className='ms-8'>{announcement_data.announcement}</h1>
+            <div className='font-medium inline p-10'>
+                <div className='h-10'>ANNOUNCEMENT</div>
+                <div className='h-30 overflow-hidden'>
+                <p className='h-20 overflow-hidden' >{announcement_data.announcement}</p>
+                </div>
             </div>
-            <Link className="box-border h-32 w-32 p-4 border-4 border-green-900" to={`/read/announcement/${announcement_data.ID}`}>See more</Link>
+            <div>
+            <Link className="box-border rounded-lg  h-32 w-32 p-4 border-4 border-green-900" to={`/read/announcement/${announcement_data.ID}`}>See more</Link>
+            </div>
           </div>
         </div>
       })}

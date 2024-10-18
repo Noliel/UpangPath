@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom'
 
 const Admin_SidePanel = () => {
     const menus = [
-        {name:"Dashboard", link:'/admin', icon: MdOutlineDashboard},
+        /* {name:"Dashboard", link:'/admin', icon: MdOutlineDashboard}, */
         {name:"Announcement", link:'/admin/announcement', icon: TfiAnnouncement},
-        {name:"Event", link:'/admin/event', icon: MdEvent},
-        {name:"Find Room", link:'/admin/findroom', icon: RiPhoneFindFill},
+        /* {name:"Event", link:'/admin/event', icon: MdEvent},
+        {name:"Find Room", link:'/admin/findroom', icon: RiPhoneFindFill}, */
     ];
     const [open, setOpen] = useState(true);
   return (

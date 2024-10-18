@@ -1,231 +1,231 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .world-map {
-    width:100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 1em;
-    position: relative;
+  width:100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1em;
+  position: relative;
 }
 
 .world-map img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .title {
-    text-align: center;
-    color: #012b55;
-    margin: 2em 0;
-    padding: 0 1em;
+  text-align: center;
+  color: #012b55;
+  margin: 2em 0;
+  padding: 0 1em;
 }
 
 .title p {
-    max-width: 500px;
-    margin: 1em auto;
-    line-height: 27px;
+  max-width: 500px;
+  margin: 1em auto;
+  line-height: 27px;
 }
 
 .pin {
-    background: #4362f8;
-    position: absolute;
-    width: 0.7em;
-    height: 0.7em;
-    border-radius: 50%;
+  background: #4362f8;
+  position: absolute;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
 }
 
 .pin::before {
-    content: '';
-    background-color: #4362f8;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    animation: pulse 1.3s ease-in-out infinite;
+  content: '';
+  background-color: #4362f8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: pulse 1.3s ease-in-out infinite;
 }
 
 .pin span {
-    display: inline-block;
-    white-space: nowrap;
-    position: absolute;
-    left: 1.5em;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    border-radius: 3em;
-    padding: 0.3em 0.6em;
-    font: 0.9em;
+  display: inline-block;
+  white-space: nowrap;
+  position: absolute;
+  left: 1.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border-radius: 3em;
+  padding: 0.3em 0.6em;
+  font: 0.9em;
 }
 
 .ptc {
-    top: 77%;
-    left: 17%;
+  top: 77%;
+  left: 17%;
 }
 
 .csdl-its {
-    top: 75%;
-    left: 24%;
+  top: 75%;
+  left: 24%;
 }
 
 .fvr {
-    top: 80%;
-    left: 29%;
+  top: 80%;
+  left: 29%;
 }
 
 .op {
-    top: 86%;
-    left: 28%;
+  top: 86%;
+  left: 28%;
 }
 
 .atrium {
-  top: 93%;
-  left: 27%;
+top: 93%;
+left: 27%;
 }
 
 .cma {
-  top: 97%;
-  left: 33%;
+top: 97%;
+left: 33%;
 }
 
 .sp {
-  top: 83%;
-  left: 44%;
+top: 83%;
+left: 44%;
 }
 
 .nh {
-  top: 120%;
-  left: 45%;
+top: 120%;
+left: 45%;
 }
 
 .forest {
-  top: 96%;
-  left: 49%;
+top: 96%;
+left: 49%;
 }
 
 .os {
-  top: 112%;
-  left: 58%;
+top: 112%;
+left: 58%;
 }
 
 .mba {
-  top: 45%;
-  left: 60%;
+top: 45%;
+left: 60%;
 }
 
 .mbah {
-  top: 68%;
-  left: 60%;
+top: 68%;
+left: 60%;
 }
 
 .riverside {
-  top: 44%;
-  left: 68%;
+top: 44%;
+left: 68%;
 }
 
 .gym {
-  top: 53%;
-  left: 49%;
+top: 53%;
+left: 49%;
 }
 
 .do {
-  top: 46%;
-  left: 45%;
+top: 46%;
+left: 45%;
 }
 
 .gsd {
-  top: 62%;
-  left: 50%;
+top: 62%;
+left: 50%;
 }
 
 .ccje {
-  top: 60%;
-  left: 40%;
+top: 60%;
+left: 40%;
 }
 
 .basiced {
-  top: 59%;
-  left: 32%;
+top: 59%;
+left: 32%;
 }
 
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-  
-  .App {
-    height: 100vh;
-    position: relative;
-  }
-  
-  /* Logo styling */
-  .logo {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-  }
-  
-  .logo img {
-    width: 50px;
-  }
-  
-  /* The side panel */
-  .side-panel {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    top: 0;
-    right: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: width 0.5s;
-    padding-top: 60px;
-    color: white;
-  }
-  
-  .side-panel.open {
-    width: 250px;
-  }
-  
-  .side-panel a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .side-panel a:hover {
-    color: #f1f1f1;
-  }
-  
-  .side-panel .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.App {
+  height: 100vh;
+  position: relative;
+}
+
+/* Logo styling */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 50px;
+}
+
+/* The side panel */
+.side-panel {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #5b804a;
+  overflow-x: hidden;
+  transition: width 0.5s;
+  padding-top: 60px;
+  color: white;
+}
+
+.side-panel.open {
+  width: 550px;
+}
+
+.side-panel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.side-panel a:hover {
+  color: #f1f1f1;
+}
+
+.side-panel .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
 
 @keyframes pulse {
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(2.5);
-    }
+  100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(2.5);
+  }
 }
 
 @media  screen and (max-width: 600px) {
-    .world-map {
-        font-size: 13px
-    }
+  .world-map {
+      font-size: 13px
+  }
 }

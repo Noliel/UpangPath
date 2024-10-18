@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #f0f0f0; /* Optional background color */
+}
+
+.container {
+    max-width: 400px; /* Maximum width for the container */
+    width: 90%; /* Width relative to the viewport */
+    padding: 20px; /* Padding inside the container */
+    background-color: white; /* Background color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    border-radius: 10px; /* Optional rounded corners */
+    text-align: center; /* Center text inside the container */
+    overflow: hidden; /* Hide any overflow */
+    word-wrap: break-word; /* Break long words if necessary */
+}

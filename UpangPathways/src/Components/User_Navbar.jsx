@@ -19,9 +19,6 @@ const User_Navbar = () => {
                 <Link to="/announcement">
                     <li className='hover:text-green-700 duration-300'>Announcement</li>
                 </Link>
-                <Link to="/findroom">
-                <li className='hover:text-green-700 duration-300'>Find Room</li>
-                </Link>
             </ul>
         </div>
     </div>

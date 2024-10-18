@@ -61,6 +61,20 @@ app.delete('/delete/announcement/:id', (req, res) => {
     })
 }) 
 
+app.get('/export/announcements', (req, res) => {
+    const sql = "SELECT * FROM announcement_data";
+    db.query(sql, (err, result) => {
+        if (err) return res.status(500).json({ Message: "Error inside server" });
+
+        const json2csvParser = new Parser();
+        const csv = json2csvParser.parse(result);
+
+        res.header('Content-Type', 'text/csv');
+        res.attachment('announcements.csv');
+        res.send(csv);
+    });
+});
+
 app.listen(8000, () => {
     console.log("Is Running")
 })
