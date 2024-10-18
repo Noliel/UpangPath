@@ -2,7 +2,9 @@ import Admin_Page_Announcement from "./Admin_Pages/Admin_Page_Announcement"
 import Admin_Page_Cite from "./Admin_Pages/Admin_Page_Cite"
 import Admin_Page_FindRoom from "./Admin_Pages/Admin_Page_FindRoom"
 import Admin_Page_Create_Announcement from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Announcement"
+import Admin_Page_Create_Cite from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Cite"
 import Admin_Page_Edit_Announcement from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Announcement"
+import Admin_Page_Edit_Cite from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Cite"
 import Admin_Layout from "./Layouts/Admin_Layout"
 import User_Layout from "./Layouts/User_Layout"
 import User_Page_Read_Announcement from "./User_Pages/READ/User_Page_Read_Announcement"
@@ -31,6 +33,8 @@ const App = () => {
         children: [
           {path:'/admin/announcement', element: <Admin_Page_Announcement/>},
           {path:'/admin/cite', element: <Admin_Page_Cite/>},
+          {path:'/admin/cite/add', element: <Admin_Page_Create_Cite/>},
+          {path:'/admin/cite/edit/:id', element: <Admin_Page_Edit_Cite/>},
           {path:'/admin/findroom', element: <Admin_Page_FindRoom/>},
           {path:'/admin/create/announcement', element: <Admin_Page_Create_Announcement/>},
           {path:'/admin/edit/announcement/:id', element: <Admin_Page_Edit_Announcement/>}
