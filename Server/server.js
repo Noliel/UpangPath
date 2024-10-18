@@ -6,6 +6,29 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
+/*Start */
+app.get("/", (req,res)=>{
+    res.json("CITE backend")
+})
+
+app.get("/announcement", (req, res)=>{
+    const sql = "SELECT * FROM announcement"
+    db.query(q,(err,announcement)=>{
+        if(err) return res.json(err)
+        return res.json(announcement)
+    })
+})
+
+app.post("/announcement", (req,res)=>{
+    const sql = "INSERT INTO announcement ('id','title') VALUES ()"
+})
+
+app.listen(8000, ()=>{
+    console.log("Connected to backend!")
+})
+
+
+/*End */
 
 const db = mysql.createConnection({
     host: "localhost",
