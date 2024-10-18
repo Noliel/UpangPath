@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -74,6 +75,8 @@ app.get('/export/announcements', (req, res) => {
         res.send(csv);
     });
 });
+
+
 
 app.listen(8000, () => {
     console.log("Is Running")

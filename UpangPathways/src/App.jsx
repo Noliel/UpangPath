@@ -1,5 +1,5 @@
 import Admin_Page_Announcement from "./Admin_Pages/Admin_Page_Announcement"
-import Admin_Page_Event from "./Admin_Pages/Admin_Page_Event"
+import Admin_Page_Cite from "./Admin_Pages/Admin_Page_Cite"
 import Admin_Page_FindRoom from "./Admin_Pages/Admin_Page_FindRoom"
 import Admin_Page_Create_Announcement from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Announcement"
 import Admin_Page_Edit_Announcement from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Announcement"
@@ -30,7 +30,7 @@ const App = () => {
         element:<Admin_Layout />,
         children: [
           {path:'/admin/announcement', element: <Admin_Page_Announcement/>},
-          {path:'/admin/event', element: <Admin_Page_Event/>},
+          {path:'/admin/cite', element: <Admin_Page_Cite/>},
           {path:'/admin/findroom', element: <Admin_Page_FindRoom/>},
           {path:'/admin/create/announcement', element: <Admin_Page_Create_Announcement/>},
           {path:'/admin/edit/announcement/:id', element: <Admin_Page_Edit_Announcement/>}
