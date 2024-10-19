@@ -37,28 +37,35 @@ const Admin_Page_Cite = () => {
                 Add New Room
             </button>
             <div className="grid gap-4">
-                {cites.map((cite) => (
-                    <div key={cite.ID} className="flex items-center space-x-4 border p-4 rounded">
-                        <img src={`http://localhost:8000${cite.Photo}`} alt="Room" className="w-16 h-16 object-cover" />
-                        <div className="flex-1">
-                            <p className="font-bold">{cite.roomname}</p>
-                            <p>{cite.description}</p>
-                        </div>
-                        <button
-                            onClick={() => navigate(`/admin/cite/edit/${cite.ID}`)}
-                            className="bg-yellow-500 text-white px-2 py-1 rounded"
-                        >
-                            Edit
-                        </button>
-                        <button
-                            onClick={() => handleDelete(cite.ID)}
-                            className="bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                            Delete
-                        </button>
-                    </div>
-                ))}
+    {cites.map((cite) => {
+        // Step 1: Assign imageUrl based on the presence of cite.photo
+        const imageUrl = cite.photo ? `http://localhost:8000/uploads/${cite.photo}` : '';
+
+        return (
+            <div key={cite.ID} className="flex items-center space-x-4 border p-4 rounded">
+                {imageUrl && (
+                    <img src={imageUrl} alt="Room" className="w-16 h-16 object-cover" />
+                )}
+                <div className="flex-1">
+                    <p className="font-bold">{cite.roomname}</p>
+                    <p>{cite.description}</p>
+                </div>
+                <button
+                    onClick={() => navigate(`/admin/cite/edit/${cite.ID}`)}
+                    className="bg-yellow-500 text-white px-2 py-1 rounded"
+                >
+                    Edit
+                </button>
+                <button
+                    onClick={() => handleDelete(cite.ID)}
+                    className="bg-red-500 text-white px-2 py-1 rounded"
+                >
+                    Delete
+                </button>
             </div>
+        );
+    })}
+</div>
         </div>
   )
 }
