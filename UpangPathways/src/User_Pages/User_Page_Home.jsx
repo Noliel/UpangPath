@@ -1,64 +1,49 @@
-import React from 'react'
+// User_Page_Home.jsx
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css'; // Import Swiper core styles
+import 'swiper/css/effect-fade'; // Import effect fade styles
+import { Autoplay, EffectFade } from 'swiper/modules';
+import './User_Page_Home.css'; // Custom CSS for animations
 import img1 from '../Container/home/img1.jpg'
 import img2 from '../Container/home/img2.jpg'
 import img3 from '../Container/home/up.png'
-import img4 from '../Container/home/upang.jpg'
-import './User_Page_Home.css'
 
 const User_Page_Home = () => {
-  return (
-    <div class='carousel'>
-      <Swiper
-      spaceBetween={30}
-      centeredSlides={true}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-      pagination={{
-        clickable: true,
-      }}
-      navigation={true}
-      modules={[Autoplay, Pagination, Navigation]}
-      className="mySwiper"
-      class="image-container"
-      >
-        <SwiperSlide className='object-cover'>
-        <div className="full-screen-image">
-            <div className="overlay-text text-green-600">PHINMA</div>
-            <div className='p-text'>UPANG</div>
-            <div className='o-text'>DAGUPAN</div>
-        </div>
-        </SwiperSlide>
-        <SwiperSlide>
-        <div className="full-screen-image2">
-            <div className="overlay-text text-green-600">PHINMA</div>
-            <div className='p-text'>UPANG</div>
-            <div className='o-text'>DAGUPAN</div>
-        </div>
-        </SwiperSlide>
-        <SwiperSlide>
-        <div className="full-screen-image3">
-          <div className="overlay-text text-green-600">PHINMA</div>
-          <div className='p-text'>UPANG</div>
-          <div className='o-text'>DAGUPAN</div>
-        </div>
-        </SwiperSlide>
-        <SwiperSlide>
-        <div className="full-screen-image4">
-          <div className="overlay-text text-green-600">PHINMA</div>
-          <div className='p-text'>UPANG</div>
-          <div className='o-text'>DAGUPAN</div>
-        </div>
-        </SwiperSlide>
-      </Swiper>
-    </div>
-  )
-}
+    const slides = [
+        { image: img1, line1: 'PHINMA', line2: 'UPANG', line3: 'DAGUPAN' },
+        { image: img2, line1: 'PHINMA', line2: 'UPANG', line3: 'DAGUPAN' },
+        { image: img3, line1: 'PHINMA', line2: 'UPANG', line3: 'DAGUPAN' }
+    ];
 
-export default User_Page_Home
+    return (
+        <div className="w-full h-screen">
+            <Swiper
+                modules={[Autoplay, EffectFade]}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
+                effect="fade"
+                loop={true}
+                className="h-full"
+            >
+                {slides.map((slide, index) => (
+                    <SwiperSlide key={index}>
+                        <div
+                            className="relative w-full h-full bg-cover bg-center"
+                            style={{ backgroundImage: `url(${slide.image})` }}
+                        >
+                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center pl-8 text-white">
+                                <div className="space-y-2 animate-fadeInLeft">
+                                    <h1 className="text-4xl md:text-6xl font-bold text-green-600">{slide.line1}</h1>
+                                    <h2 className="text-3xl md:text-5xl">{slide.line2}</h2>
+                                    <h3 className="text-2xl md:text-4xl">{slide.line3}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>
+    );
+};
+
+export default User_Page_Home;

@@ -9,6 +9,7 @@ import Admin_Layout from "./Layouts/Admin_Layout"
 import User_Layout from "./Layouts/User_Layout"
 import User_Page_Read_Announcement from "./User_Pages/READ/User_Page_Read_Announcement"
 import User_Page_Announcement from "./User_Pages/User_Page_Announcement"
+import User_Page_Cite from "./User_Pages/User_Page_Cite"
 import User_Page_Findroom from "./User_Pages/User_Page_Findroom"
 import User_Page_Home from "./User_Pages/User_Page_Home"
 import User_Page_SchoolMap from "./User_Pages/User_Page_SchoolMap"
@@ -25,6 +26,7 @@ const App = () => {
           {path: 'announcement', element: <User_Page_Announcement />},
           {path: 'findroom', element: <User_Page_Findroom />},
           {path: '/read/announcement/:id', element: <User_Page_Read_Announcement/>},
+          {path: '/cite', element: <User_Page_Cite/>},
         ],
       },
       {

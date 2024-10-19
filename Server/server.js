@@ -5,100 +5,86 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 app.use(cors());
 app.use(express.json())
 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Save files in the 'uploads/' directory
+        cb(null, 'uploads'); // Save to 'uploads' directory
     },
     filename: (req, file, cb) => {
-        // Get the original file extension
-        const ext = path.extname(file.originalname);
-        // Generate a unique name for the file with the original extension
-        cb(null, `${file.fieldname}-${Date.now()}${ext}`);
+        cb(null, Date.now() + path.extname(file.originalname)); // Use unique filename
     }
 });
-
 const upload = multer({ storage: storage });
 
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 /*START */
 app.post('/api/cite', upload.single('photo'), (req, res) => {
-    const photoUrl = '/uploads/' + req.file.filename;
     const { roomname, description } = req.body;
+    const photo = req.file ? req.file.filename : ''; // Only the filename is stored
 
-    const query = 'INSERT INTO cite (Photo, roomname, description) VALUES (?, ?, ?)';
-    db.query(query, [photoUrl, roomname, description], (err, results) => {
-        if (err) {
-            console.error('Database Error:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-        res.json({ message: 'Record added successfully', id: results.insertId });
+    const sql = 'INSERT INTO cite (photo, roomname, description) VALUES (?, ?, ?)';
+    db.query(sql, [photo, roomname, description], (err, result) => {
+        if (err) throw err;
+        res.json({ message: 'Entry created successfully', id: result.insertId });
     });
 });
-
-// API to get all records
+// Read all entries
 app.get('/api/cite', (req, res) => {
-    const query = 'SELECT * FROM cite';
-    db.query(query, (err, results) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
+    const sql = 'SELECT * FROM cite';
+    db.query(sql, (err, results) => {
+        if (err) throw err;
         res.json(results);
     });
 });
 
-// API to get a single record by ID
+// Read a single entry
 app.get('/api/cite/:id', (req, res) => {
     const { id } = req.params;
-    const query = 'SELECT * FROM cite WHERE ID = ?';
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        res.json(results[0]);
+    const sql = 'SELECT * FROM cite WHERE id = ?';
+    db.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        res.json(result[0]);
     });
 });
 
-// API to update a record
+// Update an entry
 app.put('/api/cite/:id', upload.single('photo'), (req, res) => {
     const { id } = req.params;
-    const photoUrl = req.file ? '/uploads/' + req.file.filename : req.body.Photo;
     const { roomname, description } = req.body;
+    const photo = req.file ? req.file.filename : '';
 
-    const query = 'UPDATE cite SET Photo = ?, roomname = ?, description = ? WHERE ID = ?';
-    db.query(query, [photoUrl, roomname, description, id], (err, results) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        res.json({ message: 'Record updated successfully' });
+    let sql = 'UPDATE cite SET roomname = ?, description = ?';
+    const values = [roomname, description];
+    if (photo) {
+        sql += ', photo = ?';
+        values.push(photo);
+    }
+    sql += ' WHERE id = ?';
+    values.push(id);
+
+    db.query(sql, values, (err, result) => {
+        if (err) throw err;
+        res.json({ message: 'Entry updated successfully' });
     });
 });
 
-// API to delete a record
+// Delete an entry
 app.delete('/api/cite/:id', (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM cite WHERE ID = ?';
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        res.json({ message: 'Record deleted successfully' });
+    const sql = 'DELETE FROM cite WHERE id = ?';
+    db.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        res.json({ message: 'Entry deleted successfully' });
     });
 });
-
-// Serve static files from the uploads directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
 /* END */
 
 const db = mysql.createConnection({
