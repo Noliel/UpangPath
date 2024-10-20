@@ -3,6 +3,8 @@ import mysql from 'mysql'
 import cors from 'cors'
 import multer from 'multer';
 import path from 'path';
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -11,6 +13,15 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
 app.use(express.json())
+
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: 'upangpathways'
+})
+
+const JWT_SECRET = 'helo'
 
 
 const storage = multer.diskStorage({
@@ -87,12 +98,61 @@ app.delete('/api/cite/:id', (req, res) => {
 });
 /* END */
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: 'upangpathways'
-})
+/*  LOGIN / REGISTER*/
+    /* REGISTER */
+    app.post('/api/register', (req, res) => {
+        const { username, password } = req.body;
+    
+        // Hash the password
+        bcrypt.hash(password, 10, (err, hash) => {
+            if (err) return res.status(500).send('Error hashing password');
+            
+            // Insert the new admin into the database
+            const query = 'INSERT INTO admin (username, password) VALUES (?, ?)';
+            db.query(query, [username, hash], (err, result) => {
+                if (err) return res.status(500).send('Error registering admin');
+                res.status(200).send('Admin registered successfully');
+            });
+        });
+    });
+    /* LOGIN */
+    app.post('/api/login', (req, res) => {
+        const { username, password } = req.body;
+    
+        // Check if the admin exists
+        const query = 'SELECT * FROM admin WHERE username = ?';
+        db.query(query, [username], (err, results) => {
+            if (err || results.length === 0) return res.status(401).send('Invalid credentials');
+            
+            // Compare password
+            bcrypt.compare(password, results[0].password, (err, isMatch) => {
+                if (err || !isMatch) return res.status(401).send('Invalid credentials');
+    
+                // Generate JWT token
+                const token = jwt.sign({ id: results[0].Id }, JWT_SECRET, { expiresIn: '1h' });
+                res.json({ token });
+            });
+        });
+    });
+    /* AUTHENTICATION */
+    function authenticateToken(req, res, next) {
+        const token = req.headers['authorization'];
+        if (!token) return res.status(403).send('Token is required');
+    
+        jwt.verify(token, JWT_SECRET, (err, admin) => {
+            if (err) return res.status(403).send('Invalid token');
+            req.admin = admin;
+            next();
+        });
+    }
+
+    // Protected route example
+    app.get('/api/admin/dashboard', authenticateToken, (req, res) => {
+    res.send('Welcome to the admin dashboard');
+});
+
+/*  END OF LOGIN / REGISTER*/
+
 
 app.get('/', (req, res) => {
     const sql = "SELECT * FROM announcement_data"

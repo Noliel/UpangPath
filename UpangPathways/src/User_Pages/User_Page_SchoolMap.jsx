@@ -18,6 +18,7 @@ import BASICED from '../container/BASICED.jpeg'
 import cfaculty from '../container/cfaculty.png'
 import gym from '../container/gym.png'
 import opnefield from '../container/opnefield.png'
+import User_Navbar from '../Components/User_Navbar'
 
 
 
@@ -192,6 +193,7 @@ const User_Page_SchoolMap = () => {
 
   return (
     <div>
+      <User_Navbar />
       <div class="title">
       <p class="font-mono ...">School Map</p>
         <p class="text-emerald-900">#KasamaMoAngPhinmaed #MakingLivesofOthersBetter #MakingLiveBetterThroughEducstion</p>

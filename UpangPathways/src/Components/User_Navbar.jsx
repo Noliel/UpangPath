@@ -16,7 +16,7 @@ const User_Navbar = () => {
             <div className="container mx-auto flex justify-between items-center">
                 {/* Logo */}
                 <div className="text-2xl font-bold">
-                    <Link>
+                    <Link to={"/"}>
                         <img class="loo" src={logo} />
                     </Link>
                 </div>
