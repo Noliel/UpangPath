@@ -3,6 +3,9 @@ import axios from 'axios';
 import { FaTrashAlt } from "react-icons/fa";
 import { RiEdit2Line } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import Admin_Header from '../Components/Admin_Header';
+import Admin_SidePanel from '../Components/Admin_SidePanel';
+import AdminSidePanel from '../Components/AdminSidePanel';
 
 const Admin_Page_Announcement = () => {
   const [data, setData] = useState([]);
@@ -40,49 +43,53 @@ const Admin_Page_Announcement = () => {
   };
 
   return (
-    <div className='md:w-full'>
-      <div className='flex justify-between p-5 shadow-xl center place-items-center'>
-        <div>
-          <h1 className='font-bold'>Announcement</h1>
-        </div>
-        <div className='flex space-x-4'>
-          <div className='bg-green-600 p-3 rounded-lg text-white cursor-pointer'>
+    <div className="admin-page">
+      <div className="flex">
+        <Admin_SidePanel className="w-64" />
+        
+        <div className="flex-grow p-6">
+          <div className="flex justify-between mb-4">
             <Link to="/admin/create/announcement">
-              <h1>Create Announcement</h1>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                CREATE ANNOUNCEMENT
+            </button>
             </Link>
-          </div>
-          <button 
-            className='bg-blue-600 p-3 rounded-lg text-white cursor-pointer'
+            <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
             onClick={handleExport}
-          >
-            Export
-          </button>
+            >EXPORT</button>
+          </div>
+
+          <div className="overflow-auto">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b">Title</th>
+                  <th className="py-2 px-4 border-b">Date</th>
+                  <th className="py-2 px-4 border-b">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item) => (
+                  <tr key={item.id} className="hover:bg-gray-100">
+                    <td className="py-2 px-4 border-b">{item.title}</td>
+                    <td className="py-2 px-4 border-b">{item.announcement}</td>
+                    <td className="py-2 px-4 border-b">
+                    <Link to={`/admin/edit/announcement/${item.ID}`}>
+                    <button className="bg-yellow-500 text-white px-3 py-1 rounded mr-2 flex items-center hover:bg-yellow-600">
+                      <RiEdit2Line className="mr-1" /> 
+                      <span>Edit</span>
+                    </button>
+                    </Link>
+                      <button className="bg-red-500 text-white px-3 py-1 rounded flex items-center hover:bg-red-600" onClick={() => handleDelete(item.ID)}>
+                        <FaTrashAlt className="mr-1" /> Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div className='grid grid-cols-4 gap-4'>
-        {data.map((announcement_data, index) => {
-          return <div key={index} className='fix flex-row'>
-              <div className='py-1 px-1 border-2 w-1/2 md:w-full h-20 m-0 rounded-lg  overflow-hidden shadow-lg class="border-2 border-lime-800 ..."'>
-                <div className='font-medium flex flex-row ltr'>
-                  <h1 className='font-bold'>TITLE :</h1>
-                  <h1 className='ms-2'>{announcement_data.title}</h1>
-                </div>
-                <div className='font-medium flex flex-row ltr oveflow-hidden h-50'>
-                  <h1 className='font-bold '>ANNOUNCEMENT :</h1>
-                  <h1 className='ms-2 '>{announcement_data.announcement}</h1>
-                </div>
-                <div className='font-medium flex flex-row-reverse ltr mt-2'>
-                  <Link to={`/admin/edit/announcement/${announcement_data.ID}`}>
-                    <RiEdit2Line className='ms-2 text-lg cursor-pointer' />
-                  </Link>
-                  <button onClick={() => handleDelete(announcement_data.ID)}>
-                    <FaTrashAlt className='text-red-500 text-lg cursor-pointer' />
-                  </button>
-                </div>
-              </div>
-            </div>
-          
-        })}
       </div>
     </div>
   );

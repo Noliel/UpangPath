@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import User_Navbar from '../Components/User_Navbar'
 
 const User_Page_Announcement = () => {
   const [data, setData] = useState ([])
@@ -11,7 +12,7 @@ const User_Page_Announcement = () => {
     }, [])
   return (
     <div className='md:w-full'>
-      
+      <User_Navbar />
       <div className='grid grid-cols-4 gap-4  '>
       {data.map((announcement_data, index) => {
         return <div key={index} className='flex flex-row '>

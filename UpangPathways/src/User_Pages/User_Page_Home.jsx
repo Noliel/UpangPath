@@ -8,6 +8,7 @@ import './User_Page_Home.css'; // Custom CSS for animations
 import img1 from '../Container/home/img1.jpg'
 import img2 from '../Container/home/img2.jpg'
 import img3 from '../Container/home/up.png'
+import User_Navbar from '../Components/User_Navbar';
 
 const User_Page_Home = () => {
     const slides = [
@@ -18,6 +19,7 @@ const User_Page_Home = () => {
 
     return (
         <div className="w-full h-screen">
+            <User_Navbar />
             <Swiper
                 modules={[Autoplay, EffectFade]}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}

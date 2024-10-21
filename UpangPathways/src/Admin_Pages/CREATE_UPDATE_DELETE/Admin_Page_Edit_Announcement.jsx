@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import Admin_SidePanel from '../../Components/Admin_SidePanel'
 
 
 const Admin_Page_Edit_Announcement = () => {
@@ -29,31 +30,51 @@ const Admin_Page_Edit_Announcement = () => {
         }).catch(err => console.log(err))
     }
   return (
-    <div className='md:w-full'>
-        <div className='flex justify-between p-5 shadow-xl center place-items-center'>
-          <h1 className='font-bold'>Announcement Dashboard</h1>
-        </div>
-        <div className='p-5 md:w-full grid grid-cols-3 gap-4 content-center '>
-            <div className=''>
-                <form onSubmit={handleUpdate}>
-                    <h2>EDIT ANNOUNCEMENT </h2>
-                    <div>
-                        <label htmlFor=''>Title: </label>
-                        <input class="placeholder-green-800 border border-green-800 rounded-lg" type='text' placeholder='Enter Title' value={values.title}
-                        onChange={ev_data => setValues({...values, title: ev_data.target.value})}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor=''>Announcement:  </label>
-                        <input class="placeholder-green-800 border border-green-800 rounded-lg" type='text' placeholder='Enter Announcement' value={values.announcement}
-                        onChange={ev_data => setValues({...values, announcement: ev_data.target.value})}
-                        />
-                    </div>
-                    <button className='bg-green-600 p-3 rounded-lg text-white'>Done</button>
-                </form>
+    <div className="flex">
+            <Admin_SidePanel />
+            <div className="flex-1 flex items-center justify-center h-screen">
+                <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
+                    <h1 className="text-2xl font-bold mb-6 text-center">Edit Announcement</h1>
+                    <form onSubmit={handleUpdate} className="space-y-4">
+                        <div>
+                            <label htmlFor="title" className="block mb-1">Title:</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Title"
+                                value={values.title}
+                                className="block w-full placeholder-green-800 border border-green-800 rounded-lg p-2"
+                                onChange={(ev_data) => setValues({ ...values, title: ev_data.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="announcement" className="block mb-1">Announcement:</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Announcement"
+                                value={values.announcement}
+                                className="block w-full placeholder-green-800 border border-green-800 rounded-lg p-2"
+                                onChange={(ev_data) => setValues({ ...values, announcement: ev_data.target.value })}
+                            />
+                        </div>
+                        <div className="flex space-x-4">
+                            <button
+                                type="button"
+                                className="bg-gray-500 p-3 rounded-lg text-white"
+                                onClick={() => navigate('/admin/announcement')}
+                            >
+                                Back
+                            </button>
+                            <button
+                                type="submit"
+                                className="bg-green-600 p-3 rounded-lg text-white"
+                            >
+                                Done
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
   )
 }
 

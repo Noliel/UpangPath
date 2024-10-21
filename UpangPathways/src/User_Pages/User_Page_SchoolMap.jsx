@@ -18,21 +18,6 @@ import BASICED from '../container/BASICED.jpeg'
 import cfaculty from '../container/cfaculty.png'
 import gym from '../container/gym.png'
 import opnefield from '../container/opnefield.png'
-import fvr from '../Container/2.png'
-import its from '../Container/3.png'
-import ITSS from '../Container/4.png'
-import old from '../Container/5.png'
-import co from '../Container/6.png'
-import forest from '../Container/7.png'
-import nh from '../Container/8.png'
-import bc from '../Container/9.png'
-import cma from '../Container/10.png'
-import mba from '../Container/11.png'
-import ccje from '../Container/phinma.png'
-
-
-
-
 
 const User_Page_SchoolMap = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -203,6 +188,7 @@ const User_Page_SchoolMap = () => {
 
   return (
     <div>
+      <User_Navbar />
       <div class="title">
       <p class="font-mono ...">School Map</p>
         <p class="text-emerald-900">#KasamaMoAngPhinmaed #MakingLivesofOthersBetter #MakingLiveBetterThroughEducstion</p>
