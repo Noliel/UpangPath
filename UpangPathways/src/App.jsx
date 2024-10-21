@@ -22,6 +22,10 @@ import User_Page_Findroom from "./User_Pages/User_Page_Findroom"
 import User_Page_Home from "./User_Pages/User_Page_Home"
 import User_Page_SchoolMap from "./User_Pages/User_Page_SchoolMap"
 import {BrowserRouter, Route, Routes, Navigate, useLocation} from "react-router-dom";
+import User_Page_Suggestion from "./User_Pages/User_Page_Suggestion"
+import Admin_Page_Suggestion from "./Admin_Pages/Admin_Page_Suggestion"
+import Admin_SidePanel from "./Components/Admin_SidePanel"
+import { NotificationProvider } from "./Context/NotificationContext"
 
 const App = () => {
   const isAuthenticated = () => {
@@ -39,13 +43,16 @@ const App = () => {
       );
     };
     return(
+      <NotificationProvider>
       <BrowserRouter>
         <Routes>
           {/*PUBLIC ROUTES*/}
           <Route path="/" element={<User_Page_Home/>}></Route>
           <Route path="/schoolmap" element={<User_Page_SchoolMap/>}></Route>
           <Route path="/announcement" element={<User_Page_Announcement/>}></Route>
-          <Route path="//departments/:department" element={<User_Page_Departments/>}></Route>
+          <Route path="/departments/:department" element={<User_Page_Departments/>}></Route>
+          <Route path="/read/announcement/:id" element={<User_Page_Read_Announcement/>}></Route>
+          <Route path="/suggestion" element={<User_Page_Suggestion/>}></Route>
           {/*AUTHENTICATION ROUTES*/}
           <Route path="/admin/register" element={<Admin_Page_Register/>}></Route>
           <Route path="/admin/login" element={<Admin_Page_Login />}></Route>
@@ -78,11 +85,17 @@ const App = () => {
               path="/admin/departments/edit/:id"
               element={<ProtectedRoute> <Admin_Page_Edit_Departments /> </ProtectedRoute>}
           />
-          
+          <Route
+              path="/admin/suggestions"
+              element={<ProtectedRoute> <Admin_Page_Suggestion /> </ProtectedRoute>}
+          />
           </Routes>
       </BrowserRouter>
+      </NotificationProvider>
     )
   }
+
+ 
 
 export default App
 

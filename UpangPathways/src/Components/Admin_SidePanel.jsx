@@ -9,17 +9,23 @@ import { BsBuildingFillAdd } from "react-icons/bs";
 import { IoIosHome } from "react-icons/io";
 import { FaRegLightbulb } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
+import { useNotifications } from '../Context/NotificationContext';
 
 
 const Admin_SidePanel = () => {
+    const { notificationCount } = useNotifications();
     const menus = [
         {name:"Announcement", link:'/admin/announcement', icon: TfiAnnouncement},
         {name:"Departments", link:'/admin/departments', icon: BsBuildingFillAdd},
-        {name:"Suggestion", link:'/admin/suggestion', icon: FaRegLightbulb}, 
+        {name:"Suggestion", link:'/admin/suggestions', icon: FaRegLightbulb}, 
     ];
     const [open, setOpen] = useState(true);
 
     const navigate = useNavigate();
+
+    const handleDepartmentChange = (e) => {
+        setSelectedDepartment(e.target.value);
+    };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -27,45 +33,22 @@ const Admin_SidePanel = () => {
     };
   return (
     <section className="flex gap-6">
-            <div
-                className={`bg-[#0e0e0e] min-h-screen ${
-                    open ? "w-72" : "w-16"
-                } duration-500 text-gray-100 px-4 flex flex-col justify-between`}
-            >
+            <div className={`bg-[#0e0e0e] min-h-screen ${ open ? "w-72" : "w-16" } duration-500 text-gray-100 px-4 flex flex-col justify-between`}>
                 <div>
                     <div className="py-3 flex justify-end">
-                        <HiMenuAlt3
-                            size={26}
-                            className="cursor-pointer"
-                            onClick={() => setOpen(!open)}
-                        />
+                        <HiMenuAlt3 size={26} className="cursor-pointer" onClick={() => setOpen(!open)} />
                     </div>
                     <div className="mt-4 flex flex-col gap-4 relative">
                         {menus.map((menu, i) => (
-                            <Link
-                                to={menu.link}
-                                key={i}
-                                className={`${
-                                    menu.margin && "mt-5"
-                                } group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
-                            >
+                            <Link to={menu.link} key={i} className={`${ menu.margin && "mt-5"} group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}>
                                 <div>{React.createElement(menu.icon, { size: "20" })}</div>
-                                <h2
-                                    style={{
-                                        transitionDelay: `${i + 3}00ms`,
-                                    }}
-                                    className={`whitespace-pre duration-500 ${
-                                        !open && "opacity-0 translate-x-28 overflow-hidden"
-                                    }`}
-                                >
+                                <h2 style={{ transitionDelay: `${i + 3}00ms`, }} className={`whitespace-pre duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"}`}>
                                     {menu.name}
-                                </h2>
-                                <h2
-                                    className={`${
-                                        open && "hidden"
-                                    } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
-                                >
-                                    {menu.name}
+                                    {menu.name === "Suggestion" && open && (
+                                    <span className="ml-2 bg-red-500 text-white rounded-full px-2 text-xs">
+                                        {notificationCount}
+                                    </span>
+                                )}
                                 </h2>
                             </Link>
                         ))}
