@@ -84,7 +84,7 @@ const Admin_Page_Departments = () => {
                                 src={`http://localhost:8000/uploads/${department.photo}`}
                                 alt="Department"
                                 className="w-full mb-2"
-                                style={{ maxHeight: '200px', objectFit: 'cover', width: '100%' }}
+                                style={{ maxHeight: '200px', objectFit: 'contain', width: '100%' }}
                             />
                         )}
                         <h2 className="text-xl font-semibold">{department.roomname}</h2>

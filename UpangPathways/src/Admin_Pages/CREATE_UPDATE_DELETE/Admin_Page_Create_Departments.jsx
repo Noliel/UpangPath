@@ -9,6 +9,8 @@ const Admin_Page_Create_Departments = () => {
     const [department, setDepartment] = useState('');
     const [photo, setPhoto] = useState(null);
 
+    const navigate = useNavigate()
+
     const handleCreate = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -22,6 +24,7 @@ const Admin_Page_Create_Departments = () => {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             alert('Department created successfully');
+            navigate('/admin/departments')
         } catch (error) {
             console.error('Error creating department:', error);
             alert('Failed to create department');
