@@ -1,27 +1,42 @@
 import Admin_Page_Announcement from "./Admin_Pages/Admin_Page_Announcement"
-import Admin_Page_Cite from "./Admin_Pages/Admin_Page_Cite"
+import Admin_Page_Departments from "./Admin_Pages/Admin_Page_Departments"
+import Admin_Page_Cite from "./Admin_Pages/Admin_Page_Departments"
 import Admin_Page_FindRoom from "./Admin_Pages/Admin_Page_FindRoom"
 import Admin_Page_Home from "./Admin_Pages/Admin_Page_Home"
 import Admin_Page_Login from "./Admin_Pages/Admin_Page_Login"
+import Admin_Page_Profile from "./Admin_Pages/Admin_Page_Profile"
 import Admin_Page_Register from "./Admin_Pages/Admin_Page_Register"
 import Admin_Page_Create_Announcement from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Announcement"
-import Admin_Page_Create_Cite from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Cite"
+import Admin_Page_Create_Departments from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Departments"
+import Admin_Page_Create_Cite from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Create_Departments"
 import Admin_Page_Edit_Announcement from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Announcement"
-import Admin_Page_Edit_Cite from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Cite"
+import Admin_Page_Edit_Departments from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Departments"
+import Admin_Page_Edit_Cite from "./Admin_Pages/CREATE_UPDATE_DELETE/Admin_Page_Edit_Departments"
 import Admin_Layout from "./Layouts/Admin_Layout"
 import User_Layout from "./Layouts/User_Layout"
 import User_Page_Read_Announcement from "./User_Pages/READ/User_Page_Read_Announcement"
 import User_Page_Announcement from "./User_Pages/User_Page_Announcement"
-import User_Page_Cite from "./User_Pages/User_Page_Cite"
+import User_Page_Departments from "./User_Pages/User_Page_Departments"
+import User_Page_Cite from "./User_Pages/User_Page_Departments"
 import User_Page_Findroom from "./User_Pages/User_Page_Findroom"
 import User_Page_Home from "./User_Pages/User_Page_Home"
 import User_Page_SchoolMap from "./User_Pages/User_Page_SchoolMap"
-import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import {BrowserRouter, Route, Routes, Navigate, useLocation} from "react-router-dom";
 
 const App = () => {
   const isAuthenticated = () => {
     const token = localStorage.getItem('token');
+
     return !!token;
+    };
+
+    const ProtectedRoute = ({ children }) => {
+      const location = useLocation();
+      return isAuthenticated() ? (
+          children
+      ) : (
+          <Navigate to="/admin/login" state={{ from: location.pathname }} />
+      );
     };
     return(
       <BrowserRouter>
@@ -30,45 +45,48 @@ const App = () => {
           <Route path="/" element={<User_Page_Home/>}></Route>
           <Route path="/schoolmap" element={<User_Page_SchoolMap/>}></Route>
           <Route path="/announcement" element={<User_Page_Announcement/>}></Route>
-          <Route path="/cite" element={<User_Page_Cite/>}></Route>
+          <Route path="//departments/:department" element={<User_Page_Departments/>}></Route>
           {/*AUTHENTICATION ROUTES*/}
           <Route path="/admin/register" element={<Admin_Page_Register/>}></Route>
           <Route path="/admin/login" element={<Admin_Page_Login />}></Route>
           {/*PROTECTED ROUTES*/}
           <Route
               path="/admin"
-              element={isAuthenticated() ? <Admin_Page_Home /> : <Navigate to="/admin/login" />}
+              element={<ProtectedRoute> <Admin_Page_Home /> </ProtectedRoute>}
           />
           <Route
               path="/admin/announcement"
-              element={isAuthenticated() ? <Admin_Page_Announcement /> : <Navigate to="/admin/login" />}
+              element={<ProtectedRoute> <Admin_Page_Announcement /> </ProtectedRoute>}
           />
           <Route
               path="/admin/create/announcement"
-              element={isAuthenticated() ? <Admin_Page_Create_Announcement /> : <Navigate to="/admin/login" />}
+              element={<ProtectedRoute> <Admin_Page_Create_Announcement /> </ProtectedRoute>}
           />
           <Route
               path="/admin/edit/announcement/:id"
-              element={isAuthenticated() ? <Admin_Page_Edit_Announcement /> : <Navigate to="/admin/login" />}
+              element={<ProtectedRoute> <Admin_Page_Edit_Announcement /> </ProtectedRoute>}
           />
           <Route
-              path="/admin/cite"
-              element={isAuthenticated() ? <Admin_Page_Cite /> : <Navigate to="/admin/login" />}
+              path="/admin/departments"
+              element={<ProtectedRoute> <Admin_Page_Departments /> </ProtectedRoute>}
           />
           <Route
-              path="/admin/cite/add"
-              element={isAuthenticated() ? <Admin_Page_Create_Cite /> : <Navigate to="/admin/login" />}
+              path="/admin/departments/add"
+              element={<ProtectedRoute> <Admin_Page_Create_Departments /> </ProtectedRoute>}
           />
           <Route
-              path="/admin/cite/edit/:id"
-              element={isAuthenticated() ? <Admin_Page_Edit_Cite /> : <Navigate to="/admin/login" />}
+              path="/admin/departments/edit/:id"
+              element={<ProtectedRoute> <Admin_Page_Edit_Departments /> </ProtectedRoute>}
           />
+          
           </Routes>
       </BrowserRouter>
     )
   }
 
 export default App
+
+console.log('Token after login:', localStorage.getItem('token'));
 
 /* const router = createBrowserRouter([
   {

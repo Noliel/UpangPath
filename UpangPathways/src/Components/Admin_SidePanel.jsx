@@ -14,7 +14,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 const Admin_SidePanel = () => {
     const menus = [
         {name:"Announcement", link:'/admin/announcement', icon: TfiAnnouncement},
-        {name:"Departments", link:'/admin/cite', icon: BsBuildingFillAdd},
+        {name:"Departments", link:'/admin/departments', icon: BsBuildingFillAdd},
         {name:"Suggestion", link:'/admin/suggestion', icon: FaRegLightbulb}, 
     ];
     const [open, setOpen] = useState(true);

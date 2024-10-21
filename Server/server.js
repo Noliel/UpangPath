@@ -37,29 +37,38 @@ const upload = multer({ storage: storage });
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 /*START */
-app.post('/api/cite', upload.single('photo'), (req, res) => {
-    const { roomname, description } = req.body;
+app.post('/api/departments', upload.single('photo'), (req, res) => {
+    const { roomname, description, department } = req.body;
     const photo = req.file ? req.file.filename : ''; // Only the filename is stored
 
-    const sql = 'INSERT INTO cite (photo, roomname, description) VALUES (?, ?, ?)';
-    db.query(sql, [photo, roomname, description], (err, result) => {
+    const sql = 'INSERT INTO departments (photo, roomname, description, department) VALUES (?, ?, ?, ?)';
+    db.query(sql, [photo, roomname, description, department], (err, result) => {
         if (err) throw err;
         res.json({ message: 'Entry created successfully', id: result.insertId });
     });
 });
+
 // Read all entries
-app.get('/api/cite', (req, res) => {
-    const sql = 'SELECT * FROM cite';
-    db.query(sql, (err, results) => {
-        if (err) throw err;
+app.get('/api/departments', (req, res) => {
+    const { department } = req.query;
+    let sql = 'SELECT * FROM departments';
+    const values = [];
+
+    if (department) {
+        sql += ' WHERE department = ?';
+        values.push(department);
+    }
+
+    db.query(sql, values, (err, results) => {
+        if (err) return res.status(500).send('Error fetching departments');
         res.json(results);
     });
 });
 
 // Read a single entry
-app.get('/api/cite/:id', (req, res) => {
+app.get('/api/departments/:id', (req, res) => {
     const { id } = req.params;
-    const sql = 'SELECT * FROM cite WHERE id = ?';
+    const sql = 'SELECT * FROM departments WHERE id = ?';
     db.query(sql, [id], (err, result) => {
         if (err) throw err;
         res.json(result[0]);
@@ -67,35 +76,42 @@ app.get('/api/cite/:id', (req, res) => {
 });
 
 // Update an entry
-app.put('/api/cite/:id', upload.single('photo'), (req, res) => {
+app.put('/api/departments/:id', upload.single('photo'), (req, res) => {
     const { id } = req.params;
-    const { roomname, description } = req.body;
-    const photo = req.file ? req.file.filename : '';
+    const { roomname, description, department } = req.body;
+    const photo = req.file ? req.file.filename : null;
 
-    let sql = 'UPDATE cite SET roomname = ?, description = ?';
-    const values = [roomname, description];
+    let sql = 'UPDATE departments SET roomname = ?, description = ?, department = ?';
+    const values = [roomname, description, department];
+    
+    // If a new photo is uploaded, include it in the update
     if (photo) {
         sql += ', photo = ?';
         values.push(photo);
     }
+
     sql += ' WHERE id = ?';
     values.push(id);
 
     db.query(sql, values, (err, result) => {
-        if (err) throw err;
+        if (err) {
+            console.error('Error updating department:', err);
+            return res.status(500).json({ message: 'Failed to update department' });
+        }
         res.json({ message: 'Entry updated successfully' });
     });
 });
 
 // Delete an entry
-app.delete('/api/cite/:id', (req, res) => {
+app.delete('/api/departments/:id', (req, res) => {
     const { id } = req.params;
-    const sql = 'DELETE FROM cite WHERE id = ?';
+    const sql = 'DELETE FROM departments WHERE id = ?';
     db.query(sql, [id], (err, result) => {
         if (err) throw err;
         res.json({ message: 'Entry deleted successfully' });
     });
 });
+
 /* END */
 
 /*  LOGIN / REGISTER*/
@@ -149,6 +165,18 @@ app.delete('/api/cite/:id', (req, res) => {
     // Protected route example
     app.get('/api/admin/dashboard', authenticateToken, (req, res) => {
     res.send('Welcome to the admin dashboard');
+});
+
+    // Admin profile endpoint
+    app.get('/api/admin/profile', authenticateToken, (req, res) => {
+    const adminId = req.admin.id; // Extract the admin ID from the JWT token
+
+    const query = 'SELECT Id, username FROM admin WHERE Id = ?';
+    db.query(query, [adminId], (err, results) => {
+        if (err) return res.status(500).send('Error fetching admin profile');
+        if (results.length === 0) return res.status(404).send('Admin not found');
+        res.json(results[0]); // Send the admin profile details
+    });
 });
 
 /*  END OF LOGIN / REGISTER*/
