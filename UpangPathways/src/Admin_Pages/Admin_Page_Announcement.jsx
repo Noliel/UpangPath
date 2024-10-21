@@ -5,7 +5,6 @@ import { RiEdit2Line } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import Admin_Header from '../Components/Admin_Header';
 import Admin_SidePanel from '../Components/Admin_SidePanel';
-import AdminSidePanel from '../Components/AdminSidePanel';
 
 const Admin_Page_Announcement = () => {
   const [data, setData] = useState([]);

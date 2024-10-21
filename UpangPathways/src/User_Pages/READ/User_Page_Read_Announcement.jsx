@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
+import User_Navbar from '../../Components/User_Navbar';
 
 function User_Page_Read_Announcement() {
     const {id} = useParams();
@@ -14,13 +15,16 @@ function User_Page_Read_Announcement() {
         .catch(err => console.log(err))
     }, [])
   return(
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-        <h2 className='font-bold'>{announcement_data.title}</h2>
-        <div className='overflow my-5'>
-        <p>{announcement_data.announcement}</p>
+    <div>
+      <User_Navbar />
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+          <h2 className='font-bold'>{announcement_data.title}</h2>
+          <div className='overflow my-5'>
+          <p>{announcement_data.announcement}</p>
+          </div>
+          <Link className="border-2 border-blue-500 p-3 rounded-lg" to="/announcement">Back</Link>
         </div>
-        <Link className="border-2 border-blue-500 p-3 rounded-lg" to="/announcement">Back</Link>
       </div>
     </div>
   )
