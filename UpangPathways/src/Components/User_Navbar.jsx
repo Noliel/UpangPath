@@ -47,6 +47,10 @@ const User_Navbar = () => {
                             </div>
                         )}
                     </div>
+
+                    <div>
+                        <a href='/suggestion'>SUGGESTION</a>
+                    </div>
                 </div>
             </div>
         </nav>

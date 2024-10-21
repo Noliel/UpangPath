@@ -1,18 +1,35 @@
-import express from 'express'
-import mysql from 'mysql'
-import cors from 'cors'
+import express from 'express';
+import mysql from 'mysql';
+import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const app = express();
+
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
+// Database connection
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "", // Change this if you have a password
+    database: 'upangpathways'
+});
 
+// Connect to the database
+db.connect((err) => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    }
+    console.log('Connected to the database');
+});
+
+// Set up multer for file uploads (if needed)
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads'); // Save to 'uploads' directory
@@ -24,6 +41,81 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Suggestion endpoints
+app.post('/api/suggestions', (req, res) => {
+    const { suggestion, department } = req.body;
+    const sql = 'INSERT INTO suggestion_data (suggestion, department) VALUES (?, ?)'; 
+
+    db.query(sql, [suggestion, department], (err, result) => {
+        if (err) {
+            console.error('Error adding suggestion:', err);
+            return res.status(500).json({ message: 'Error adding suggestion' });
+        }
+        return res.json({ message: 'Suggestion added successfully', id: result.insertId });
+    });
+});
+
+// Get suggestions filtered by department
+app.get('/api/suggestions', (req, res) => {
+    const department = req.query.department; 
+    const sql = 'SELECT * FROM suggestion_data WHERE department = ?';
+
+    if (!department) {
+        return res.status(400).json({ message: 'Department is required' });
+    }
+
+    db.query(sql, [department], (err, results) => {
+        if (err) {
+            console.error('Error fetching suggestions:', err);
+            return res.status(500).json({ message: 'Error fetching suggestions' });
+        }
+        res.json(results);
+    });
+});
+
+// Get the count of all suggestions
+app.get('/api/suggestions', (req, res) => {
+    const sql = 'SELECT * FROM suggestion_data';
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching suggestions:', err);
+            return res.status(500).json({ message: 'Error fetching suggestions' });
+        }
+        res.json(results);
+    });
+});
+// Get unique departments
+app.get('/api/departments', (req, res) => {
+    const sql = 'SELECT DISTINCT department FROM suggestion_data';
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching departments:', err);
+            return res.status(500).json({ message: 'Error fetching departments' });
+        }
+        res.json(results);
+    });
+});
+
+// Delete a suggestion by ID
+app.delete('/api/suggestions/:id', (req, res) => {
+    const { id } = req.params;
+    const sql = 'DELETE FROM suggestion_data WHERE ID = ?';
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error deleting suggestion:', err);
+            return res.status(500).json({ message: 'Error deleting suggestion' });
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Suggestion not found' });
+        }
+        res.json({ message: 'Suggestion deleted successfully' });
+    });
+});
+
+// END Suggestion Endpoints
+
 
 /*START */
 app.post('/api/cite', upload.single('photo'), (req, res) => {
@@ -86,13 +178,6 @@ app.delete('/api/cite/:id', (req, res) => {
     });
 });
 /* END */
-
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: 'upangpathways'
-})
 
 app.get('/', (req, res) => {
     const sql = "SELECT * FROM announcement_data"
